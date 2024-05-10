@@ -1,5 +1,6 @@
 version: '3.8'
 services:
+#web service app
   app:
     build: .
     image: django_project 
@@ -9,6 +10,27 @@ services:
     ports:
       - 8000:8000
     command: "python manage.py runserver 0.0.0.0:8000"
+    restart: always
+    depends_on:
+      - db
+
+#postgress db
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+    
+      # - POSTGRES_DB=postgres
+      # - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+    container_name: postgres_db
+    
+
+#celey
+
+#redis
 
 
     
