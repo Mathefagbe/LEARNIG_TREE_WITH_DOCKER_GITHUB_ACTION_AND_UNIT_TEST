@@ -5,6 +5,7 @@ from .serializers import CreateAccountSerializer,CustomTokenObtainPairSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.views import TokenObtainPairView
+from .task import add
 
 # Create your views here.
 class RegisterAPiView(APIView):
@@ -37,5 +38,13 @@ class CustomTokenObtainPairViewSet(TokenObtainPairView):
     authentication_classes=[]
  
     def post(self, request, *args, **kwargs):
-
         return super().post(request, *args, **kwargs)
+    
+
+class TestCeleryApiView(APIView):
+    authentication_classes=[]
+    permission_classes=[]
+    
+    def get(self, request):
+        add.delay(2,100)
+        return Response("success",status=status.HTTP_200_OK)

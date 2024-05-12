@@ -4,11 +4,14 @@ from django.urls import path
 from .views import (
  RegisterAPiView,
  LoginView,
- CustomTokenObtainPairViewSet
+ CustomTokenObtainPairViewSet,
+ TestCeleryApiView
 )
 
 urlpatterns = [
     path("token/login/",LoginView.as_view(),name="token_login"),
     path("signup/",RegisterAPiView.as_view(),
-         name="signup")
+         name="signup"),
+
+    path("test/",TestCeleryApiView.as_view())
 ]

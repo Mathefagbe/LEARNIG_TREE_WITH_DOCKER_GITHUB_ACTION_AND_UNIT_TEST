@@ -78,11 +78,12 @@ WSGI_APPLICATION = 'djangotest.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     # 'default': {
-#     #     'ENGINE': 'django.db.backends.sqlite3',
-#     #     'NAME': BASE_DIR / 'db.sqlite3',
-#     # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 #     'default':{
 #         # 'ENGINE':'django.db.backends.postqresql',
 #         "ENGINE": "django.db.backends.postgresql",
@@ -94,16 +95,16 @@ WSGI_APPLICATION = 'djangotest.wsgi.application'
 
 #     }
 # }
-DATABASES = {    
-   "default": {        
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "db",
-        "PORT": 5432,
-    }
-}
+# DATABASES = {    
+#    "default": {        
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "postgres",
+#         "USER": "postgres",
+#         "PASSWORD": "postgres",
+#         "HOST": "db",
+#         "PORT": 5432,
+#     }
+# }
 
 
 # Password validation
@@ -178,3 +179,14 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
     'UPDATE_LAST_LOGIN': True,
 }
+
+# CELERY_BROKER_URL = 'rediss://red-cosvtqi1hbls73asd0vg:QYFUpz78hsxHEeLSznKTpTCVCSrpXhB7@oregon-redis.render.com:6379'
+
+#: Only add pickle to this list if your broker is secured
+#: from unwanted access (see userguide/security.html)
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_RESULT_BACKEND = 'rediss://red-cosvtqi1hbls73asd0vg:QYFUpz78hsxHEeLSznKTpTCVCSrpXhB7@oregon-redis.render.com:6379'
+# CELERY_TASK_SERIALIZER = 'json'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_BROKER_URL="redis://redis:6379/0"
+CELERY_RESULT_BACKEND="redis://redis:6379/0" 
