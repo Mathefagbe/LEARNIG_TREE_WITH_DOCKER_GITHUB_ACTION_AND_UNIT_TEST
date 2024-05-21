@@ -7,10 +7,14 @@ services:
     container_name: django_container
     #mount
     volumes:
-      - .:/django
-    ports:
-      - 8000:8000
-    command: "gunicorn djangotest.wsgi:application -b 0.0.0.0:8000"
+      - ./:/app
+      - media_volume:/app/mediafiles/
+      - static_volume:/app/static/
+    expose:
+      - 8000
+    command: sh -c "python manage.py makemigrations 
+              && python manage.py migrate 
+              && gunicorn djangotest.wsgi:application -b 0.0.0.0:8000"
     restart: always
     environment:
       - SECRET_KEY=${SECRET_KEY}
@@ -45,7 +49,7 @@ services:
     image: celery_app
     container_name: celery_container
     volumes:
-      - .:/django
+      - ./:/app
     command: "celery -A djangotest worker --loglevel=INFO"
     restart: always
     ports:
@@ -72,9 +76,26 @@ services:
     ports:
       - 6379:6379
 
+  nginx:
+    build: ./nginx
+    container_name: nginx_container
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - static_volume:/app/static/
+      - media_volume:/app/mediafiles/
+    ports:
+      - 80:80
+    restart: always
+    depends_on:
+      - app
+      # - celery
+
+
 volumes:
   redis_data:
   postgres_data:
+  static_volume:
+  media_volume:
 
 
 
