@@ -16,15 +16,16 @@ services:
     command: sh -c "python manage.py makemigrations 
               && python manage.py migrate 
               && python manage.py collectstatic
-              && gunicorn djangotest.wsgi:application -b 0.0.0.0:8000"
+              && python manage.py test"
+              # && gunicorn djangotest.wsgi:application -b 0.0.0.0:8000"
     restart: always
     environment:
       - SECRET_KEY=${SECRET_KEY}
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - CELERY_BROKER=${CELERY_BROKER}
-      - CELERY_BACKEND=${CELERY_BACKEND}
+      # - CELERY_BROKER=${CELERY_BROKER}
+      # - CELERY_BACKEND=${CELERY_BACKEND}
     develop:
       watch:
         - action: sync
@@ -56,27 +57,27 @@ services:
     container_name: postgres_db
     restart: always
 
-  celery:
-    build: .
-    image: celery_app
-    container_name: celery_container
-    volumes:
-      - ./:/app
-    command: "celery -A djangotest worker --loglevel=INFO"
-    restart: always
-    ports:
-      - 8080:8080
-    environment:
-      - SECRET_KEY=${SECRET_KEY}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - CELERY_BROKER=${CELERY_BROKER}
-      - CELERY_BACKEND=${CELERY_BACKEND}
+  # celery:
+  #   build: .
+  #   image: celery_app
+  #   container_name: celery_container
+  #   volumes:
+  #     - ./:/app
+  #   command: "celery -A djangotest worker --loglevel=INFO"
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  #   environment:
+  #     - SECRET_KEY=${SECRET_KEY}
+  #     - POSTGRES_DB=${POSTGRES_DB}
+  #     - POSTGRES_USER=${POSTGRES_USER}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  #     - CELERY_BROKER=${CELERY_BROKER}
+  #     - CELERY_BACKEND=${CELERY_BACKEND}
 
-    depends_on:
-      - redis
-      - app
+  #   depends_on:
+  #     - redis
+  #     - app
     
   redis:
     image: redis:alpine

@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-20.04
 
     env:
-      POSTGRES_DB: ${{secrets.POSTGRES_DB}}
-      POSTGRES_USER: ${{secrets.POSTGRES_USER}}
-      POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
       SECRET_KEY: ${{secrets.SECRET_KEY}}
 
     steps:
@@ -26,24 +23,24 @@ jobs:
       - name : Checkout
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'  # Specify the Python version you want to use
+      - name: Docker Test
+        run: docker-compose up -d
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+      # - name: Set up Python
+      #   uses: actions/setup-python@v2
+      #   with:
+      #     python-version: '3.8'  
 
-      - name: Run migrations
-        run: python manage.py migrate
+      # - name: Install dependencies
+      #   run: |
+      #     python -m pip install --upgrade pip
+      #     pip install -r requirements.txt
 
-      - name: Run tests
-        run: python manage.py test
+      # - name: Run migrations
+      #   run: python manage.py migrate
 
-        # - name : Test
-        #   run: sh -c "pip install requirements.txt && python manage.py test"
+      # - name: Run tests
+      #   run: python manage.py test
 
         #u can add a job to test and then deploy to dockerhub or aws ec2 instance
 
