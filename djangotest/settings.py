@@ -13,7 +13,13 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import os
+# from dotenv import read_dotenv
+from decouple import config
+# from firebase_admin import initialize_app, credentials
+# import firebase_admin
 
+
+# read_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -99,9 +105,9 @@ WSGI_APPLICATION = 'djangotest.wsgi.application'
 DATABASES = {    
    "default": {        
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("POSTGRES_DB"),
-        "USER": os.environ.get("POSTGRES_USER"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "NAME": config("POSTGRES_DB"),
+        "USER": config("POSTGRES_USER"),
+        "PASSWORD": config("POSTGRES_PASSWORD"),
         "HOST": "db",
         "PORT": 5432,
     }
@@ -192,5 +198,5 @@ SIMPLE_JWT = {
 # CELERY_RESULT_BACKEND = 'rediss://red-cosvtqi1hbls73asd0vg:QYFUpz78hsxHEeLSznKTpTCVCSrpXhB7@oregon-redis.render.com:6379'
 # CELERY_TASK_SERIALIZER = 'json'
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
-CELERY_BROKER_URL=os.environ.get("CELERY_BROKER")
-CELERY_RESULT_BACKEND=os.environ.get("CELERY_BACKEND")
+CELERY_BROKER_URL=config("CELERY_BROKER")
+CELERY_RESULT_BACKEND=config("CELERY_BACKEND")

@@ -2,7 +2,8 @@ version: '3.8'
 services:
 #web service app
   app:
-    build: .
+    build: 
+      context: .
     image: django_project 
     container_name: django_container
     #mount
@@ -24,6 +25,16 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - CELERY_BROKER=${CELERY_BROKER}
       - CELERY_BACKEND=${CELERY_BACKEND}
+    develop:
+      watch:
+        - action: sync
+          path: ./web
+          target: /src/web
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
+
     depends_on:
       - db
       - redis
@@ -62,6 +73,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - CELERY_BROKER=${CELERY_BROKER}
       - CELERY_BACKEND=${CELERY_BACKEND}
+
     depends_on:
       - redis
       - app

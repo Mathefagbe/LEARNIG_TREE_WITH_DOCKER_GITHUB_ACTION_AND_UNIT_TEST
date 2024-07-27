@@ -48,3 +48,17 @@ class TestCeleryApiView(APIView):
     def get(self, request):
         add.delay(2,100)
         return Response("success",status=status.HTTP_200_OK)
+    
+
+
+class TestView(APIView):
+    authentication_classes=[]
+    permission_classes=[]
+
+    def get(self,request):
+        res={
+            "status":"success",
+            "data":"Saved",
+            "message":"Docker starting"
+        }
+        return Response(res,status=status.HTTP_200_OK)

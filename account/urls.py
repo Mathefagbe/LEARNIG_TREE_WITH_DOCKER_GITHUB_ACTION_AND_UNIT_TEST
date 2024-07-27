@@ -5,7 +5,8 @@ from .views import (
  RegisterAPiView,
  LoginView,
  CustomTokenObtainPairViewSet,
- TestCeleryApiView
+ TestCeleryApiView,
+ TestView
 )
 
 urlpatterns = [
@@ -13,5 +14,6 @@ urlpatterns = [
     path("signup/",RegisterAPiView.as_view(),
          name="signup"),
 
-    path("test/",TestCeleryApiView.as_view())
+    path("test/",TestCeleryApiView.as_view()),
+    path("test-path/",TestView.as_view())
 ]
