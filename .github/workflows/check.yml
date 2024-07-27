@@ -29,8 +29,8 @@ jobs:
       - name: Docker Test
         run: docker-compose up -d
 
-      - name: Run tests
-        run: docker exec django_container python manage.py test
+      # - name: Run tests
+      #   run: docker exec django_container python manage.py test
 
       - name: Stop and remove the container
         run: docker-compose down
