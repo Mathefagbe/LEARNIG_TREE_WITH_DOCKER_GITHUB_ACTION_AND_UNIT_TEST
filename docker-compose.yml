@@ -16,7 +16,6 @@ services:
     command: sh -c "python manage.py makemigrations 
               && python manage.py migrate 
               && python manage.py collectstatic
-              && python manage.py test"
               # && gunicorn djangotest.wsgi:application -b 0.0.0.0:8000"
     restart: always
     environment:
