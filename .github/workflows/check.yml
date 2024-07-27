@@ -30,7 +30,7 @@ jobs:
         run: docker-compose up -d
 
       - name: Run tests
-        run: python manage.py test
+        run: docker exec django-container python manage.py test
 
       # - name: Set up Python
       #   uses: actions/setup-python@v2
