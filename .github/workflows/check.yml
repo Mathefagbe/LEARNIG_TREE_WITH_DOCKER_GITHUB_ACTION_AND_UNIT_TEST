@@ -51,9 +51,6 @@ jobs:
       - name: Run tests
         run: python manage.py test
 
-      - name: Build
-        run: python manage.py runserver 0.0.0.0:8000
-
         # - name : Test
         #   run: sh -c "pip install requirements.txt && python manage.py test"
 
