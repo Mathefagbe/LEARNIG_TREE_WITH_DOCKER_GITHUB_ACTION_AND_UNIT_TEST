@@ -1,4 +1,4 @@
-# version: '3.8'
+version: '3.8'
 services:
 #web service app
   app:
@@ -29,15 +29,15 @@ services:
     #   resources:
     #     limits:
     #       memory: 512M
-    develop:
-      watch:
-        - action: sync
-          path: ./
-          target: /app
-        #   ignore:
-        #     - node_modules/
-        # - action: rebuild
-        #   path: package.json
+    # develop:
+    #   watch:
+    #     - action: sync
+    #       path: ./web
+    #       target: /src/web
+    #       ignore:
+    #         - node_modules/
+    #     - action: rebuild
+    #       path: package.json
 
     depends_on:
       - db
