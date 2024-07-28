@@ -32,6 +32,13 @@ jobs:
       - name: Stop and remove the container
         run: docker-compose down
 
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          # context: .
+          push: true
+          tags: apostlecoder/django_project:latest
+
       # - name: Set up Python
       #   uses: actions/setup-python@v2
       #   with:
