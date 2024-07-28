@@ -29,9 +29,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./nginx
           push: true
-          tags: apostlecoder/django_project:latest
+          tags: apostlecoder/django:latest
 
       # - name: Set up Python
       #   uses: actions/setup-python@v2
